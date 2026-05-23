@@ -1,0 +1,20 @@
+institution_manager = {
+	institutions = {
+		feudalism = {
+			active = no
+			birth_place = aachen
+		}
+		legalism = {
+			active = no
+			birth_place = rome
+		}
+		meritocracy = {
+			active = no
+			birth_place = dadu
+		}
+	}
+}
+
+religion_manager = {
+}
+

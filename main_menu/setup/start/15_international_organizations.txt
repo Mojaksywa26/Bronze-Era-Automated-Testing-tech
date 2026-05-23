@@ -1,0 +1,91 @@
+international_organization_manager = {
+	add_international_organization = {
+		type = mycenaean_league
+		# Internal positive date for engine stability.
+		# Historically represents a pre-start palace network before 1209 BC.
+		creation_date = 1.1.1
+
+		map_color = hsv360 { 36 72 70 }
+
+		members = {
+			0001G
+			ACHAE
+			ATHEN
+			IOLC
+			ORCHO
+			PYLOS
+			RHODE
+			SPART
+			THEBE
+		}
+
+		leader = 0001G
+
+		locations = {
+			amorgos andravida andritsaina andros angelokastron argos balat bodonitsa bodrum candia
+			cephalonia chania chios corinth damala elounda eretreia ermioni farsala gergeri
+			hagios_pavlos ikaria karystos karytaina kleisoura kos kymi kythnos larissa leukas
+			loidoriki megara milos mykonos nafpaktos nafplio naxos negroponte neopatras oreos
+			pontikokastro rethymno samos siteia sporades stomio thebes tripolitsa tyrnavos viannos
+			vonitsa xylokastro zakynthos zetounion
+			chalandritsa kalavryta patras vostitsa
+			athens
+			demetrias
+			atalanti gravia
+			kalamata kyparissia leuktron modon
+			karpathos rodos
+			astros kythira monemvasia mystras oitylo veligosti
+			livadeia salona
+		}
+
+		high_wanax = {
+			0001G
+		}
+
+		great_palace_candidate = {
+			0001G
+			PYLOS
+			SPART
+			THEBE
+		}
+
+		palace_candidate = {
+			ATHEN
+			IOLC
+			ORCHO
+		}
+
+		sanctuary_patron = {
+			0001G
+			ACHAE
+			ORCHO
+			THEBE
+		}
+
+		island_wanaxate = {
+			RHODE
+		}
+
+		palace_kingdom = {
+			ACHAE
+			ATHEN
+			IOLC
+			ORCHO
+			PYLOS
+			RHODE
+			SPART
+			THEBE
+		}
+
+		laws = {
+			recognized_high_wanax_policy
+			bronze_tribute_policy
+			shared_festivals_policy
+			palace_oaths_policy
+		}
+
+		variables = {
+			mycenaean_league_authority = 55
+		}
+	}
+}

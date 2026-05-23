@@ -1,0 +1,38 @@
+# Bronze Era Celtic culture hierarchy generated from liste pays.txt.
+# celtic is the parent group; the other entries are Celtic subdivisions.
+
+celtic = {
+}
+
+germanic_celtic = {
+}
+
+belgica = {
+}
+
+gallaecian = {
+}
+
+lusitanian = {
+}
+
+ibero_celtic = {
+}
+
+britannic = {
+}
+
+gaulish = {
+}
+
+ligurian = {
+}
+
+lepontic = {
+}
+
+balkan_celtic = {
+}
+
+anatolia_celtic = {
+}

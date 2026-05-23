@@ -1,0 +1,3 @@
+# Legacy compatibility wrapper. Bronze Era countries should use either
+# `Bronze` or `Neolithic` directly.
+include = "Neolithic"

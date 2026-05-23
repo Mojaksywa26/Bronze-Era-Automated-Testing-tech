@@ -1,0 +1,304 @@
+bronze_hatti_collapse = {
+	monthly_spawn_chance = monthly_spawn_chance_unique
+	hint_tag = hint_bronze_hatti_collapse
+
+	content_trigger = {
+		bronze_hatti_collapse_relevant_country = yes
+	}
+
+	can_start = {
+		country_exists = c:HATTI
+		# Visual chronology: 1195 BC.
+		# Internal year 1 = 1209 BC, so 1195 BC = internal year 15.
+		current_date >= 15.1.1
+		NOT = { has_global_variable = bronze_hatti_collapse_ended }
+		OR = {
+			situation:sea_peoples_crisis ?= {
+				has_variable = sea_peoples_global_phase
+				var:sea_peoples_global_phase >= 2
+			}
+			c:HATTI ?= {
+				OR = {
+					has_variable = sea_peoples_raided_coast
+					any_owned_location = {
+						has_location_modifier = recently_raided_by_horde
+					}
+				}
+			}
+		}
+	}
+
+	can_end = {
+		OR = {
+			NOT = { country_exists = c:HATTI }
+			AND = {
+				has_variable = bronze_hatti_situation_months
+				var:bronze_hatti_situation_months >= 420
+			}
+			c:HATTI = {
+				has_variable = bronze_hatti_collapse_active
+				var:bronze_hatti_collapse_phase >= 3
+				var:bronze_hatti_collapse_pressure <= 5
+			}
+		}
+	}
+
+	visible = {
+		OR = {
+			tag = HATTI
+			has_variable = bronze_hatti_successor_state
+			bronze_hatti_collapse_relevant_country = yes
+		}
+	}
+
+	on_start = {
+		set_variable = { name = bronze_hatti_situation_months value = 0 }
+		c:HATTI ?= {
+			trigger_event_non_silently = bronze_hatti_collapse.1
+		}
+	}
+
+	on_ending = {
+		set_global_variable = { name = bronze_hatti_collapse_ended value = 1 }
+		c:HATTI ?= {
+			bronze_hatti_collapse_cleanup = yes
+		}
+	}
+
+	on_monthly = {
+		if = {
+			limit = { NOT = { has_variable = bronze_hatti_situation_months } }
+			set_variable = { name = bronze_hatti_situation_months value = 0 }
+		}
+		change_variable = { name = bronze_hatti_situation_months add = 1 }
+
+		c:HATTI ?= {
+			if = {
+				limit = { NOT = { has_variable = bronze_hatti_collapse_active } }
+				bronze_hatti_collapse_begin = yes
+			}
+
+			# Baseline exhaustion is intentionally slow. The crisis should unfold
+			# over years, while events and Sea Peoples pressure provide the shocks.
+
+			if = {
+				limit = { is_during_bankruptcy = yes }
+				bronze_hatti_collapse_add_pressure = { value = 2 }
+				bronze_hatti_collapse_add_famine = { value = 1 }
+			}
+			if = {
+				limit = { is_at_war = yes }
+				bronze_hatti_collapse_add_pressure = { value = 1 }
+			}
+		}
+
+		bronze_hatti_collapse_sea_peoples_monthly_pressure = yes
+
+		c:HATTI ?= {
+			if = {
+				limit = {
+					var:bronze_hatti_collapse_pressure >= 25
+					NOT = { bronze_hatti_collapse_phase_at_least = { value = 2 } }
+				}
+				bronze_hatti_collapse_set_phase = { value = 2 }
+				trigger_event_non_silently = bronze_hatti_collapse.5
+			}
+			if = {
+				limit = {
+					var:bronze_hatti_collapse_pressure >= 55
+					NOT = { bronze_hatti_collapse_phase_at_least = { value = 3 } }
+				}
+				bronze_hatti_collapse_set_phase = { value = 3 }
+				trigger_event_non_silently = bronze_hatti_collapse.6
+			}
+			if = {
+				limit = {
+					var:bronze_hatti_collapse_pressure >= 80
+					NOT = { bronze_hatti_collapse_phase_at_least = { value = 4 } }
+				}
+				bronze_hatti_collapse_set_phase = { value = 4 }
+				trigger_event_non_silently = bronze_hatti_collapse.7
+			}
+			if = {
+				limit = {
+					var:bronze_hatti_collapse_pressure >= 100
+					NOT = { bronze_hatti_collapse_phase_at_least = { value = 5 } }
+				}
+				bronze_hatti_collapse_set_phase = { value = 5 }
+				trigger_event_non_silently = bronze_hatti_collapse.8
+			}
+
+			random_list = {
+				360 = { }
+				7 = { trigger_event_non_silently = bronze_hatti_collapse.10 }
+				6 = {
+					trigger = { bronze_hatti_collapse_phase_at_least = { value = 2 } }
+					trigger_event_non_silently = bronze_hatti_collapse.20
+				}
+				5 = {
+					trigger = { bronze_hatti_collapse_phase_at_least = { value = 2 } }
+					trigger_event_non_silently = bronze_hatti_collapse.30
+				}
+				5 = {
+					trigger = { bronze_hatti_collapse_phase_at_least = { value = 3 } }
+					trigger_event_non_silently = bronze_hatti_collapse.40
+				}
+				4 = {
+					trigger = { bronze_hatti_collapse_phase_at_least = { value = 3 } }
+					trigger_event_non_silently = bronze_hatti_collapse.50
+				}
+				4 = {
+					trigger = {
+						bronze_hatti_collapse_phase_at_least = { value = 3 }
+						NOT = { has_variable = bronze_hatti_wilusa_oath_tested }
+						c:WILUS ?= { is_subject_of = c:HATTI }
+					}
+					trigger_event_non_silently = bronze_hatti_collapse.100
+				}
+				4 = {
+					trigger = {
+						bronze_hatti_collapse_phase_at_least = { value = 3 }
+						NOT = { has_variable = bronze_hatti_seha_oath_tested }
+						c:SEHA ?= { is_subject_of = c:HATTI }
+					}
+					trigger_event_non_silently = bronze_hatti_collapse.110
+				}
+				3 = {
+					trigger = {
+						bronze_hatti_collapse_phase_at_least = { value = 4 }
+						NOT = { has_variable = bronze_hatti_mira_oath_tested }
+						c:MIRA ?= { is_subject_of = c:HATTI }
+					}
+					trigger_event_non_silently = bronze_hatti_collapse.120
+				}
+				3 = {
+					trigger = {
+						bronze_hatti_collapse_phase_at_least = { value = 4 }
+						NOT = { has_variable = bronze_hatti_hapalla_oath_tested }
+						c:HAPAL ?= { is_subject_of = c:HATTI }
+					}
+					trigger_event_non_silently = bronze_hatti_collapse.130
+				}
+				3 = {
+					trigger = { bronze_hatti_collapse_phase_at_least = { value = 4 } }
+					trigger_event_non_silently = bronze_hatti_collapse.60
+				}
+				2 = {
+					trigger = { bronze_hatti_collapse_phase_at_least = { value = 4 } }
+					trigger_event_non_silently = bronze_hatti_collapse.70
+				}
+				1 = {
+					trigger = { bronze_hatti_collapse_phase_at_least = { value = 5 } }
+					trigger_event_non_silently = bronze_hatti_collapse.90
+				}
+			}
+		}
+	}
+
+	tooltip = {
+		if = {
+			limit = {
+				has_owner = yes
+				owner ?= { has_variable = bronze_hatti_collapse_active }
+			}
+			custom_tooltip = bronze_hatti_collapse_location_owner_tt
+		}
+		if = {
+			limit = {
+				has_location_modifier = recently_raided_by_horde
+			}
+			custom_tooltip = bronze_hatti_collapse_raided_location_tt
+		}
+		if = {
+			limit = {
+				has_owner = yes
+				owner ?= { has_variable = bronze_hatti_client_defiant }
+			}
+			custom_tooltip = bronze_hatti_collapse_defiant_vassal_location_tt
+		}
+		if = {
+			limit = {
+				has_owner = yes
+				owner ?= { has_variable = bronze_hatti_client_loyal }
+			}
+			custom_tooltip = bronze_hatti_collapse_loyal_vassal_location_tt
+		}
+	}
+
+	is_data_map = yes
+
+	map_color = {
+		if = {
+			limit = {
+				has_owner = yes
+				owner = c:HATTI
+			}
+			value = c:HATTI.country_color
+		}
+		else_if = {
+			limit = {
+				has_owner = yes
+				owner ?= { has_variable = bronze_hatti_successor_state }
+			}
+			value = orange
+		}
+		else = {
+			value = yellow
+		}
+	}
+
+	secondary_map_color = {
+		if = {
+			limit = {
+				has_location_modifier = recently_raided_by_horde
+			}
+			value = red
+		}
+		else_if = {
+			limit = {
+				has_owner = yes
+				owner ?= { has_variable = bronze_hatti_client_defiant }
+			}
+			value = rgb { 146 42 24 }
+		}
+		else_if = {
+			limit = {
+				has_owner = yes
+				owner ?= { has_variable = bronze_hatti_client_loyal }
+			}
+			value = rgb { 44 128 67 }
+		}
+		else_if = {
+			limit = {
+				has_owner = yes
+				owner ?= { has_variable = bronze_hatti_internal_breakdown }
+			}
+			value = orange
+		}
+	}
+
+	legend_key = {
+		desc = bronze_hatti_collapse_legend_hatti
+		color = yellow
+	}
+
+	legend_key = {
+		desc = bronze_hatti_collapse_legend_successor_pressure
+		color = orange
+	}
+
+	legend_key = {
+		desc = bronze_hatti_collapse_legend_defiant_vassal
+		color = rgb { 146 42 24 }
+	}
+
+	legend_key = {
+		desc = bronze_hatti_collapse_legend_loyal_vassal
+		color = rgb { 44 128 67 }
+	}
+
+	legend_key = {
+		desc = bronze_hatti_collapse_legend_raided
+		color = red
+	}
+}

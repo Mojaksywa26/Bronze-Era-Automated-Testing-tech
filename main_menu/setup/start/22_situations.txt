@@ -1,0 +1,5 @@
+situation_manager = {
+	# Bronze Age crisis situations are not forced active at game start.
+	# Sea Peoples begins through its 1195 BCE trigger, and the Hattie Collapse
+	# follows only after Sea Peoples pressure reaches Hatti or phase 2.
+}

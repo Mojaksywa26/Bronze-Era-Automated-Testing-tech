@@ -1,0 +1,24 @@
+﻿# Bronze Tools and Weapons
+
+bronze_tools_maker_maintenance_advance = {
+	age = age_1_traditions
+	
+	unlock_production_method = bronze_tools_maker_maintenance
+	
+	requires = bronze_forge_advance
+
+	starting_technology_level = 2
+}
+
+stone_tools_maker_maintenance_advance = {
+	age = age_1_traditions
+	
+	unlock_production_method = stone_tools_maker_maintenance
+	
+	requires = stone_forge_advance
+
+	starting_technology_level = 2
+}
+
+
+
